@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center text-success mb-4">Signup</h2>
+    <form action="/signup" id="signupForm" method="POST" class="mx-auto"  style="max-width: 400px;">
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input type="text" name="fullName" class="form-control" id="fullName" >
+        <div id="nameError" class="text-danger"></div>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" name="email" class="form-control" id="email" >
+         <div id="emailError" class="text-danger"></div>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" id="password" >
+         <div id="passError" class="text-danger"></div>
+      </div>
+      <button type="submit" class="btn btn-success w-100">Sign Up</button>
+    </form>
+  </div>
+  <script>
+
+    const nameid = document.getElementById("fullName");
+    const emailid = document.getElementById("email");
+    const passwordid = document.getElementById("password");
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const passError = document.getElementById("passError");
+    const signupForm = document.getElementById("signupForm");
+
+
+    function nameValidateCheck(event){
+        const nameVal = nameid.value;
+        const namePattern = /^[A-Za-z\s]+$/;
+
+        if(nameVal.trim()===""){
+            nameError.style.display = "block";
+            nameError.innerHTML = "Enter a valid Name"
+        }else if(!namePattern.test(nameVal)){
+            nameError.style.display = "block";
+            nameError.innerHTML = "Name can only contain alphabets and spaces";
+        }else{
+            nameError.style.display = "none";
+            nameError.innerHTML = "";
+        }
+    }
+
+
+    document.addEventListener("DOMContentLoaded",function(){
+        signupForm.addEventListener("submit",function(event){
+
+
+            nameValidateCheck();
+            emailValidateCheck();
+            passValidateCheck();
+
+            if(
+                !nameid ||
+                !emailid ||
+                !passwordid||
+                !nameError ||
+                !emailError ||
+                !passError ||
+                !signupForm
+            ){
+                console.error("One or more Element are not found");
+            }
+            if(
+                nameError.innerHTML ||
+                emailError.innerHTML||
+                passError.innerHTML 
+            ){
+                event.preventDefault();
+            }
+        })
+    })
+
+
+
+
+  </script>
+</body>
+</html>
